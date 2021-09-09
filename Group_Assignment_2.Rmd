@@ -1,0 +1,52 @@
+---
+title: "Lab 2 Group Assignment"
+author: "Group 5"
+date: "9/8/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#1. Produce a scatterplot matrix which includes all of the variables in the data set.
+```{r}
+library(ISLR)
+data('Auto')
+
+pairs(Auto)
+```
+#2. Compute the matrix of correlations between the variables using the function cor(). You will need to exclude the name variable, which is qualitative.
+```{r}
+cor(Auto[,-9])
+```
+#3.Use the lm() function to perform a multiple linear regression with mpg as the response and all other variables except name as the predictors. Use the summary() function to print the results.
+```{r}
+lm.fit = lm(mpg~.-name, data = Auto)
+summary(lm.fit)
+```
+displacement, weight, year, origin
+
+#4.Use the plot() function to produce diagnostic plots of the linear regression fit. Comment on any problems you see with the fit. Do the residual plots suggest any unusually large outliers? Does the leverage plot identify any observations with unusually high leverage?
+```{r}
+plot(lm.fit)
+```
+yes; yes 
+
+#5.Use the * and : symbols to fit linear regression models with interaction effects. Do any interactions appear to be statistically significant?
+```{r}
+lm_inter = lm(mpg ~ . - name + weight:acceleration,data = Auto)
+summary(lm_inter)
+```
+```{r}
+lm.fit2 = lm(mpg~cylinders*displacement+displacement*weight, data = Auto)
+summary(lm.fit2)
+```
+
+#6.Try a few different transformations of the variables, such as log(X), √X, X2. Comment on your findings.
+```{r}
+lm.fit=lm(mpg ~ . - name + log(weight) + sqrt(horsepower) + I(displacement^2) +
+I(cylinders^2),data=Auto)
+summary(lm.fit)
+```
+year
