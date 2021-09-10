@@ -43,6 +43,7 @@ yes; yes
 lm_inter = lm(mpg ~ . - name + weight:acceleration,data = Auto)
 summary(lm_inter)
 ```
+
 ```{r}
 lm.fit2 = lm(mpg~cylinders*displacement+displacement*weight, data = Auto)
 summary(lm.fit2)
@@ -54,3 +55,5 @@ lm.fit3=lm(mpg ~ . - name + log(weight) + sqrt(horsepower) + I(displacement^2) +
 summary(lm.fit3)
 ```
 year
+
+
