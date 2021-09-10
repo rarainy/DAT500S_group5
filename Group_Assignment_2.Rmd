@@ -14,10 +14,11 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ISLR)
 data('Auto')
 
-pairs(Auto)
+pairs(Auto) #produce a scatterplot matrix
 ```
 #2. Compute the matrix of correlations between the variables using the function cor(). You will need to exclude the name variable, which is qualitative.
 ```{r}
+names(Auto) #get the ‘name’ column is the 9th one
 cor(Auto[,-9])
 ```
 #3.Use the lm() function to perform a multiple linear regression with mpg as the response and all other variables except name as the predictors. Use the summary() function to print the results.
@@ -25,7 +26,11 @@ cor(Auto[,-9])
 lm.fit = lm(mpg~.-name, data = Auto)
 summary(lm.fit)
 ```
-displacement, weight, year, origin
+#ANS:
+i. There is a linear relationship between the predictors and the response mpg. Multiple R-squared is 0.8215 and adjusted R-squared is 0.8182,which are ralatively close to 1. F-statistic t value is large and p-value is small enough(< 2.2e-16). So the linear relationship is confirmed. However, some predictors do not have a statistically significant effect on the response.
+ii. From the summary output, we can find several related preditors with the response mpg, including the displacement, weight, year, origin.
+iii. The coefficient for the year is 0.750773,meaning that when other predictors remain the same, the mpg value would increase 0.750773 each year. Other statistically significant preditors' coefficient also means that with other preditors unchanged, the mpg will alter the specific number each one that preditor's unit.
+
 
 #4.Use the plot() function to produce diagnostic plots of the linear regression fit. Comment on any problems you see with the fit. Do the residual plots suggest any unusually large outliers? Does the leverage plot identify any observations with unusually high leverage?
 ```{r}
@@ -45,8 +50,7 @@ summary(lm.fit2)
 
 #6.Try a few different transformations of the variables, such as log(X), √X, X2. Comment on your findings.
 ```{r}
-lm.fit=lm(mpg ~ . - name + log(weight) + sqrt(horsepower) + I(displacement^2) +
-I(cylinders^2),data=Auto)
-summary(lm.fit)
+lm.fit3=lm(mpg ~ . - name + log(weight) + sqrt(horsepower) + I(displacement^2) + I(cylinders^2),data=Auto)
+summary(lm.fit3)
 ```
 year
